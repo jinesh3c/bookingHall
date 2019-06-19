@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Model;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Booking extends Model
+{
+    public function role(){
+        return $this->belongsToMany('App\Model\Role', 'appuser_roles');
+    }
+    public function hall(){
+        return $this->belongsTo('App\Model\Hall');
+    }
+    public function user(){
+        return $this->belongsTo('App\Model\User');
+    }
+	public function getBookings(){
+		return Booking::orderBy('created_at','desc')->get();
+	}
+    public function saveBooking($request){
+        $data = Booking::where('start_date', $request->start_date)
+                        ->where('end_date',$request->end_date)
+                        ->where('hall_id',$request->hall_id)
+                        ->first();
+        if($data){
+            return null;
+        }
+    	$data = new Booking;
+        $data->user_id = $request->user_id;
+        $data->hall_id = $request->hall_id;
+        $data->start_date = $request->start_date;
+        $data->end_date = $request->end_date;
+        $data->save();
+        return $data;
+    }
+}
