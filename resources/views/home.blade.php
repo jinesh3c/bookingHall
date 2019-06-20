@@ -1,5 +1,12 @@
 @extends('layouts.app')
-
+<style type="text/css">
+    .errors{
+        width: 100%;
+        margin-top: .25rem;
+        font-size: 80%;
+        color: #e3342f;
+    }
+</style>
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -13,34 +20,23 @@
                             <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('type location') }}</label>
 
                             <div class="col-md-6">
-                                <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') }}" required autocomplete="location">
+                                <input id="location" type="text" class="form-control" name="location">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="hall" class="col-md-4 col-form-label text-md-right">{{ __('Select Hall') }}</label>
 
                             <div class="col-md-6">
-                                <select id="halls" class="form-control" name="hall_id"></select>
+                                <select id="halls" class="form-control" name="hall"></select>
+                                <span class="error_hall" role="alert"></span>
                             </div>
                         </div>
-                        {{-- <div class="form-group row">
-                            <label for="hall" class="col-md-4 col-form-label text-md-right">{{ __('Select Hall') }}</label>
-
-                            <div class="col-md-6">
-                                <select name="hall_id" id="hall_id" class="form-control">
-                                    <option value="{{null}}">select a hall</option>
-                                    @foreach($halls as $hall)
-                                    <option value="{{$hall->id}}">{{$hall->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
-
                         <div class="form-group row">
                             <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('From') }}</label>
 
                             <div class="col-md-6">
-                                <input id="start_date" type="date" class="form-control @error('start_date') is-invalid @enderror" name="start_date" value="{{ old('start_date') }}" required autocomplete="start_date">
+                                <input id="start_date" type="date" class="form-control" name="start_date">
+                                <span class="error_start_date" role="alert"></span>
                             </div>
                         </div>
 
@@ -48,7 +44,8 @@
                             <label for="end_date" class="col-md-4 col-form-label text-md-right">{{ __('To') }}</label>
 
                             <div class="col-md-6">
-                                <input id="end_date" type="date" class="form-control @error('end_date') is-invalid @enderror" name="end_date" value="{{ old('end_date') }}" required autocomplete="end_date">
+                                <input id="end_date" type="date" class="form-control" name="end_date" >
+                                <span class="error_end_date" role="alert"></span>
                             </div>
                         </div>
                         <div class="form-group row mb-0">
@@ -58,6 +55,7 @@
                                 </button>
                             </div>
                         </div>
+                        <div id="errors"></div>
                 </div>
             </div>
         </div>

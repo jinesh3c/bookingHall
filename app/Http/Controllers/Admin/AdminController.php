@@ -16,7 +16,7 @@ class AdminController extends Controller
     public function ajaxBooking(Request $request)
     {
         $this->validate($request, [
-            'hall_id' => 'required|integer',
+            'hall' => 'required|integer',
             'start_date' => 'required',
             'end_date' => 'required',
         ]);

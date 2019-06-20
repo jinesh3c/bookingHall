@@ -21,14 +21,14 @@ class Booking extends Model
     public function saveBooking($request){
         $data = Booking::whereDate('start_date','<=',$request->end_date)
                         ->whereDate('end_date','>=',$request->start_date)
-                        ->where('hall_id',$request->hall_id)
+                        ->where('hall_id',$request->hall)
                         ->first();
         if($data){
             return null;
         }
     	$data = new Booking;
         $data->user_id = $request->user_id;
-        $data->hall_id = $request->hall_id;
+        $data->hall_id = $request->hall;
         $data->start_date = $request->start_date;
         $data->end_date = $request->end_date;
         $data->save();

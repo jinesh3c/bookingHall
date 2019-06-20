@@ -29,7 +29,7 @@ $(document).ready(function(){
                     data: {
                         _token: CSRF_TOKEN, 
                         user_id:$("#user_id").val(),
-                        hall_id:$("#halls").val(),
+                        hall:$("#halls").val(),
                         start_date:$("#start_date").val(),
                         end_date:$("#end_date").val(),
                     },
@@ -44,6 +44,12 @@ $(document).ready(function(){
                             $("#message").html("<p class='alert alert-danger'>Hall is not available for booking</p>");
                             // alert('Hall is not Availabile')
                         }
+                    },
+                    error: function(error) {
+                        console.log(error.responseJSON.errors)
+                        $.each(error.responseJSON.errors, function(index, value){
+                            $(`.error_${index}`).append('<strong class="errors">'+value+'</strong>')
+                        })
                     }
                 }); 
             });
