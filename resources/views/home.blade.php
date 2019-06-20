@@ -1,12 +1,4 @@
 @extends('layouts.app')
-<style type="text/css">
-    .errors{
-        width: 100%;
-        margin-top: .25rem;
-        font-size: 80%;
-        color: #e3342f;
-    }
-</style>
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -20,14 +12,16 @@
                             <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('type location') }}</label>
 
                             <div class="col-md-6">
-                                <input id="location" type="text" class="form-control" name="location">
+                                <input id="location" type="text" class="form-control" name="location" placeholder="enter location">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="hall" class="col-md-4 col-form-label text-md-right">{{ __('Select Hall') }}</label>
 
                             <div class="col-md-6">
-                                <select id="halls" class="form-control" name="hall"></select>
+                                <select id="halls" class="form-control" name="hall">
+                                    <option value="{{null}}">select Hall</option>
+                                </select>
                                 <span class="error_hall" role="alert"></span>
                             </div>
                         </div>
