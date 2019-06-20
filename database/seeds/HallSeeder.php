@@ -2,10 +2,8 @@
 
 use App\Model\Hall;
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
-// use DB;
 
-class HallsTableSeeder extends Seeder
+class HallSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,11 +12,6 @@ class HallsTableSeeder extends Seeder
      */
     public function run()
     {
-    	// DB::table('halls')->insert([
-     //        'name' => 'Hall A',
-     //    	'address' => 'naya baneswor',
-     //    	'phone' => '9842089687'
-     //    ]);
         Hall::create([
         	'name' => 'Hall A',
         	'address' => 'naya baneswor',

@@ -13,4 +13,6 @@
 - Run `key:generate` command
 - Run `php artisan migrate` command
 - Run `php artisan db:seed` command to seed admin 
-
+- if seeding cause an eror run 
+	`composer dump-autoload -o`
+	`php artisan config:cache`
