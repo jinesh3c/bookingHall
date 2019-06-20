@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('theme/index');
 });
 
 Auth::routes();
@@ -21,5 +21,6 @@ Auth::routes();
 Route::group(['middleware' =>['auth']], function(){
 	Route::get('/home', 'HomeController@index')->name('home')->middleware('admin');
 	Route::get('/admin/home', 'Admin\AdminController@index')->name('dashboard')->middleware('customer');
-	Route::post('/ajaxBook', 'HomeController@ajaxBooking');
+	Route::post('/ajaxBook', 'Admin\AdminController@ajaxBooking');
+	Route::get('/ajaxHall', 'Admin\AdminController@ajaxGetHall');
 });

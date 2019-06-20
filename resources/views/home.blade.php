@@ -10,7 +10,21 @@
                         <div id="message" style={color="red"}></div>
                         <input type="text" name="user_id" value="{{Auth::user()->id}}" id="user_id" hidden>
                         <div class="form-group row">
-                            <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('Select Hall') }}</label>
+                            <label for="location" class="col-md-4 col-form-label text-md-right">{{ __('type location') }}</label>
+
+                            <div class="col-md-6">
+                                <input id="location" type="text" class="form-control @error('location') is-invalid @enderror" name="location" value="{{ old('location') }}" required autocomplete="location">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="hall" class="col-md-4 col-form-label text-md-right">{{ __('Select Hall') }}</label>
+
+                            <div class="col-md-6">
+                                <select id="halls" class="form-control" name="hall_id"></select>
+                            </div>
+                        </div>
+                        {{-- <div class="form-group row">
+                            <label for="hall" class="col-md-4 col-form-label text-md-right">{{ __('Select Hall') }}</label>
 
                             <div class="col-md-6">
                                 <select name="hall_id" id="hall_id" class="form-control">
@@ -20,7 +34,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group row">
                             <label for="start_date" class="col-md-4 col-form-label text-md-right">{{ __('From') }}</label>
@@ -49,11 +63,32 @@
         </div>
     </div>
 </div>
-<script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+{{-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
+<script src={{asset('js/jquery.min.js')}}></script>
 </script>
 <script>
         $(document).ready(function(){
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $("#location").keyup(function() {
+                var location = $("#location").val()
+                console.log(location)
+                $.ajax({
+                    url: '/ajaxHall',
+                    data:{
+                        _token: CSRF_TOKEN,
+                        keyword: $('#location').val()
+                    },
+                    dataType: 'JSON',
+                    success:function(data){
+                        var halls = data.msg;
+                        $('#halls').html('');
+                        console.log(data.msg)
+                        $.each(halls, function(index, value){
+                            $('#halls').append($('<option>',{value:value.id}).text(value.name));
+                        });
+                    }
+                })
+            });
             $("#postForm").click(function(){
                 $.ajax({
                     /* the route pointing to the post function */
@@ -63,7 +98,7 @@
                     data: {
                         _token: CSRF_TOKEN, 
                         user_id:$("#user_id").val(),
-                        hall_id:$("#hall_id").val(),
+                        hall_id:$("#halls").val(),
                         start_date:$("#start_date").val(),
                         end_date:$("#end_date").val(),
                     },
@@ -73,10 +108,10 @@
                         console.log(data.status)
                         if(data.status=='success'){
                             $("#message").html("<p class='alert alert-success'>You booked a Hall Successfully</p>"); 
-                            alert('your booking set successfully')
+                            // alert('your booking set successfully')
                         }else{
                             $("#message").html("<p class='alert alert-danger'>Hall is not Available</p>");
-                            alert('Hall is not Availabile')
+                            // alert('Hall is not Availabile')
                         }
                     }
                 }); 
