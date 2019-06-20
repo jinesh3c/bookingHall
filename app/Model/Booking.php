@@ -6,9 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
-    public function role(){
-        return $this->belongsToMany('App\Model\Role', 'appuser_roles');
-    }
     public function hall(){
         return $this->belongsTo('App\Model\Hall');
     }

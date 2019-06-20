@@ -36,7 +36,7 @@ class AdminController extends Controller
         }
     }
     public function ajaxGetHall(Request $request){
-    	$data = Hall::where('address','like','%'.$request->keyword.'%')->get();
+        $data = (new Hall)->getHallByKeyword($request->keyword);
     	$response = array(
             'status' => 'success',
             'msg' => $data
