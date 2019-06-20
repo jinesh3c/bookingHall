@@ -65,57 +65,5 @@
 </div>
 {{-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> --}}
 <script src={{asset('js/jquery.min.js')}}></script>
-</script>
-<script>
-        $(document).ready(function(){
-            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-            $("#location").keyup(function() {
-                var location = $("#location").val()
-                console.log(location)
-                $.ajax({
-                    url: '/ajaxHall',
-                    data:{
-                        _token: CSRF_TOKEN,
-                        keyword: $('#location').val()
-                    },
-                    dataType: 'JSON',
-                    success:function(data){
-                        var halls = data.msg;
-                        $('#halls').html('');
-                        console.log(data.msg)
-                        $.each(halls, function(index, value){
-                            $('#halls').append($('<option>',{value:value.id}).text(value.name));
-                        });
-                    }
-                })
-            });
-            $("#postForm").click(function(){
-                $.ajax({
-                    /* the route pointing to the post function */
-                    url: '/ajaxBook',
-                    type: 'POST',
-                    /* send the csrf-token and the input to the controller */
-                    data: {
-                        _token: CSRF_TOKEN, 
-                        user_id:$("#user_id").val(),
-                        hall_id:$("#halls").val(),
-                        start_date:$("#start_date").val(),
-                        end_date:$("#end_date").val(),
-                    },
-                    dataType: 'JSON',
-                    /* remind that 'data' is the response of the AjaxController */
-                    success: function (data) { 
-                        console.log(data.status)
-                        if(data.status=='success'){
-                            $("#message").html("<p class='alert alert-success'>You booked a Hall Successfully</p>"); 
-                            // alert('your booking set successfully')
-                        }else{
-                            $("#message").html("<p class='alert alert-danger'>Hall is not Available</p>");
-                            // alert('Hall is not Availabile')
-                        }
-                    }
-                }); 
-            });
-       });
-    </script>
+<script src={{asset('js/main.js')}}></script>
 @endsection

@@ -19,8 +19,8 @@ class Booking extends Model
 		return Booking::orderBy('created_at','desc')->get();
 	}
     public function saveBooking($request){
-        $data = Booking::where('start_date', $request->start_date)
-                        ->where('end_date',$request->end_date)
+        $data = Booking::whereDate('start_date','<',$request->end_date)
+                        ->whereDate('end_date','>=',$request->start_date)
                         ->where('hall_id',$request->hall_id)
                         ->first();
         if($data){
